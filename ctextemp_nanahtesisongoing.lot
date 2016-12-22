@@ -1,0 +1,10 @@
+\contentsline {table}{\numberline {1}{\ignorespaces Values of American option at $t=0$ using Gaussian-RBF with $c=1.5$.}}{24}
+\contentsline {table}{\numberline {2}{\ignorespaces Values of American option at $t=0$ using Multiquadric-RBF with $c=1.0$ .}}{26}
+\contentsline {table}{\numberline {3}{\ignorespaces Values of American option at $t=0$ using Inverse-Multiquadric-RBF with $c=1$ .}}{27}
+\contentsline {table}{\numberline {4}{\ignorespaces Comparison of different $c$ valuesfor Gaussian-RBF and their RMSE .}}{28}
+\contentsline {table}{\numberline {5}{\ignorespaces Comparison of different $c$ values for MQ-RBF and their RMSE .}}{28}
+\contentsline {table}{\numberline {6}{\ignorespaces Comparison of different $c$ values for IMQ-RBF and their RMSE .}}{32}
+\contentsline {table}{\numberline {7}{\ignorespaces Finite Difference solution at $N=2001,\epsilon =10^{-4},\Delta t=0.001$.}}{32}
+\contentsline {table}{\numberline {8}{\ignorespaces Finite Difference solution at $N=2001,\epsilon =10^{-3},\Delta t=0.01$.}}{33}
+\contentsline {table}{\numberline {9}{\ignorespaces Finite Difference solution at $N=2001,\epsilon =10^{-2},\Delta t=0.1$.}}{33}
+\contentsline {table}{\numberline {A.1}{Long Table}}{38}

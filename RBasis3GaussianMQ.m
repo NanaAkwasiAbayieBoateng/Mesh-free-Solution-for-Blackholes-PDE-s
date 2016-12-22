@@ -1,0 +1,276 @@
+
+function V=RBasis3GaussianAmerican(theta,M)
+
+%Theta Methods(without matrix iniversion)for solving the ODE's
+
+%clear all
+format('longE')
+global c
+
+t=cputime;
+
+r=0.1;sigma=0.20;T=1.;
+
+S_min=0;S_max=2;
+
+E=1;epsilon=0.01;C=r*E;theta=0.5;
+
+N=101;
+
+h=(S_max-S_min)/(N-1);
+
+%c=4.0*h;
+c=1*h;
+
+Y=linspace(S_min,S_max,N);
+
+M=100;
+
+k=T/M;
+
+% ****************************************
+
+% Matrix P
+
+L=L1(Y); L_Sy=L1_Sy(Y); L_Syy=L1_Syy(Y);
+
+CND=cond(L)
+
+P=(1/2)*sigma^2*(L_Syy)+r*(L_Sy)-r*L;
+
+LL=L-(1-theta)*k*P;
+
+PP=L+theta*k*P;
+
+[LL1,UU1]=lu(LL);
+
+[LL2,UU2]=lu(L);
+
+% ******************************************
+
+% Initial Condition
+
+U0=ic(Y);
+
+a=UU2\(LL2\U0);
+
+% ******************************************
+
+iplot=1;
+
+for i=1:M
+
+    b=PP*a;
+
+    for j=1:N
+
+        Q(j)=epsilon*C/(L(j,:)*a+epsilon-(E-Y(j)));
+
+    end
+
+    an=UU1\(LL1\(b+k*Q'));
+
+    Un=L*an;
+
+    Un(1)=E;
+
+    Un(N)=0;
+
+    a=UU2\(LL2\Un);
+
+%     if mod(i,10)==1
+% 
+%         for j=1:N
+% 
+%             W(iplot,j)=U(Y(j),a,Y);
+% 
+%         end
+% 
+%         iplot = iplot+1;
+% 
+%     end
+
+end
+
+% surf(W);
+
+colormap(hot);
+
+SS=[0.6:0.1:1.4];
+FD1001=[0.4000037 0.3001161 0.2020397 ...
+    0.1169591 0.0602833 0.0293272 ...
+    0.0140864 0.0070408 0.0038609];
+for i=1:(length(SS))
+
+   V(i)=U(SS(i),a,Y);
+
+end;
+
+temp=0;
+
+for i=1:length(SS)
+
+   temp=temp+(max(E-SS(i),0)-V(i))^2;
+k(i)=max(E-SS(i),0);
+end;
+
+RMSE=sqrt(temp/length(SS))
+error2=norm(FD1001-V)/(length(SS))
+time=cputime-t
+
+h=plot(SS,V,'--rs',SS,k);
+xlabel('ASSET PRICE')
+ylabel('VALUE OF OPTION')
+legend('option price','payoff')
+set(h,'LineWidth',2)
+%title('Graph of MQ-RBF at 101 Nodes')
+% ***************************************
+
+function y=U(x,a,Y)
+
+N=length(Y);
+
+y=0;
+
+for i=1:N
+
+   y=y+a(i)*phi(x,Y(i));
+
+end;
+
+
+
+% ***************************************   
+
+
+
+function y=phi(x,yj)
+
+global c
+
+%c=0.05;
+
+  y=sqrt((x-yj)^2+c^2);
+
+ % y=exp(-(x-yj)^2/c^2);
+%y=(c^2 +(x-yj)^2)^(-1/2);
+  
+
+% *********************************************
+
+  
+
+function y=phi_y(x,yj)
+
+global c
+
+%c=0.05;
+
+  y=(x-yj)/(sqrt((x-yj)^2+c^2));
+
+ % y=-2*(x-yj)/c^2*exp(-(x-yj)^2/c^2);
+%y=(x-yj)/(c^2 +(x-yj)^2)^(3/2);
+
+
+% *****************************************
+
+
+
+function y= phi_yy(x,yj)
+
+global c
+
+%c=0.05;
+
+y=1/sqrt((x-yj)^2+c^2)- ((x-yj)^2)/(((x-yj)^2+c^2)^(3/2));
+
+%y=-2/c^2*exp(-(x-yj)^2/c^2)+4*(x-yj)...
+%^2/c^4*exp(-(x-yj)^2/c^2); 
+%y=-(-2*x^2 +4*x*yj-2*yj^2 +c^2)/(c^2 +(x-yj)^2)^(5/2);
+
+% *******************************************
+
+
+
+function y=L1(Y)
+
+N=length(Y);
+
+for i=1:N 
+
+   for j=1:N
+
+      y(i,j)=phi(Y(i),Y(j));
+
+   end
+
+end
+
+
+
+% **********************************************
+
+
+
+function y=L1_Sy(Y)
+
+N=length(Y);
+
+for i=1:N 
+
+   for j=1:N
+
+      y(i,j)=Y(i)*phi_y(Y(i),Y(j));
+
+   end
+
+end
+
+
+
+% ******************************************
+%
+
+
+
+function y=L1_Syy(Y)
+
+N=length(Y);
+
+for i=1:N 
+
+   for j=1:N
+
+      y(i,j)=Y(i)*phi_yy(Y(i),Y(j));
+
+   end
+
+end
+
+
+
+% *****************************************
+% **
+
+
+
+function y=ic(Y)
+
+E=1;
+
+N=length(Y);
+
+y=zeros(N,1);
+
+for i=1:N
+
+   y(i)=max(E-Y(i),0);
+
+end
+
+
+
+% *********************************************
+
+
+

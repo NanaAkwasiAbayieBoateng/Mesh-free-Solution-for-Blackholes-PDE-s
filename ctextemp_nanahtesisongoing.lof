@@ -1,0 +1,12 @@
+\contentsline {figure}{\numberline {1}{\ignorespaces The pay-off of the European Call Option }}{9}
+\contentsline {figure}{\numberline {2}{\ignorespaces The pay-off of the European Put Option }}{9}
+\contentsline {figure}{\numberline {3}{\ignorespaces Graph of Gaussian-RBF at $N=101$ nodes }}{25}
+\contentsline {figure}{\numberline {4}{\ignorespaces Graph of Multiquadric-RBF at $N=101$ nodes }}{25}
+\contentsline {figure}{\numberline {5}{\ignorespaces Graph of Inverse Multiquadric-RBF at $N=101$ nodes }}{29}
+\contentsline {figure}{\numberline {6}{\ignorespaces Comparison CPU times of RBF's at $N=101$ nodes }}{29}
+\contentsline {figure}{\numberline {7}{\ignorespaces Comparison RMSE of RBF's at $N=101$ nodes(above) and RMSE for different $c$ values using MQ-RBF}}{30}
+\contentsline {figure}{\numberline {8}{\ignorespaces Comparison RMSE of Different $c$ values for Gaussian-RBF(above) and IMQ-RBF at $N=101$ nodes }}{31}
+\contentsline {figure}{\numberline {9}{\ignorespaces Comparison between RBF and Finite Difference Solutions }}{31}
+\contentsline {figure}{\numberline {10}{\ignorespaces RBF \textit {N}=101, \textit {k}=0.01 and FD \textit {N}=2001,\textit {k}=0.01 }}{33}
+\contentsline {figure}{\numberline {11}{\ignorespaces Comparison of CPU Times between the 3 RBFs for $N=101$ and FD for \textit {N}=2001 }}{34}
+\contentsline {figure}{\numberline {12}{\ignorespaces Comparison of RMSE between the 3 RBFs for $N=101$ and FD for \textit {N}=2001 }}{34}
